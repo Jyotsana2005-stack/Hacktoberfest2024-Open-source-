@@ -1,0 +1,116 @@
+Here's a Java implementation of a Stack data structure:
+
+
+Stack.java
+
+import java.util.EmptyStackException;
+
+public class Stack<T> {
+    private Node<T> top;
+    private int size;
+
+    private static class Node<T> {
+        T data;
+        Node<T> next;
+
+        Node(T data) {
+            this.data = data;
+            this.next = null;
+        }
+    }
+
+    public Stack() {
+        top = null;
+        size = 0;
+    }
+
+    // Push element onto stack
+    public void push(T element) {
+        Node<T> newNode = new Node<>(element);
+        newNode.next = top;
+        top = newNode;
+        size++;
+    }
+
+    // Pop element from stack
+    public T pop() {
+        if (isEmpty()) {
+            throw new EmptyStackException();
+        }
+        T data = top.data;
+        top = top.next;
+        size--;
+        return data;
+    }
+
+    // Peek at top element
+    public T peek() {
+        if (isEmpty()) {
+            throw new EmptyStackException();
+        }
+        return top.data;
+    }
+
+    // Check if stack is empty
+    public boolean isEmpty() {
+        return top == null;
+    }
+
+    // Get size of stack
+    public int size() {
+        return size;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        Node<T> current = top;
+        while (current != null) {
+            sb.append(current.data).append(" ");
+            current = current.next;
+        }
+        return sb.toString();
+    }
+}
+
+
+
+Example Usage
+
+public class Main {
+    public static void main(String[] args) {
+        Stack<Integer> stack = new Stack<>();
+
+        // Push elements onto stack
+        stack.push(1);
+        stack.push(2);
+        stack.push(3);
+
+        // Print stack
+        System.out.println("Stack: " + stack); // Output: Stack: 3 2 1
+
+        // Pop element from stack
+        int popped = stack.pop();
+        System.out.println("Popped: " + popped); // Output: Popped: 3
+
+        // Peek at top element
+        int top = stack.peek();
+        System.out.println("Top: " + top); // Output: Top: 2
+
+        // Check if stack is empty
+        System.out.println("Is empty? " + stack.isEmpty()); // Output: Is empty? false
+
+        // Get size of stack
+        System.out.println("Size: " + stack.size()); // Output: Size: 2
+    }
+}
+
+
+
+Time Complexity:
+
+- push: O(1)
+- pop: O(1)
+- peek: O(1)
+- isEmpty: O(1)
+- size: O(1)
